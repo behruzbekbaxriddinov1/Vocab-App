@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethernis - Ingliz Tili O'rganish</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRXRoZXJuaXMiLCJzaG9ydF9uYW1lIjoiRXRoZXJuaXMiLCJzdGFydF91cmwiOiIuLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiM2NjdlZWEiLCJ0aGVtZV9jb2xvciI6IiM2NjdlZWEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRJNElpQm9aV2xuYUhROUlqRXlPQ0lpSUhacFpYZENiM2c5SWpBZ01DQXhNamdnTVRJNElpQm1hV3hzUFNJak5qWTNaV1ZoSWo0OEwzTjJaejQ9Iiwic2l6ZXMiOiIxMjh4MTI4IiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin: 0;
+            font-weight: 700;
+            background: linear-gradient(45deg, #fff, #e8f4fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            letter-spacing: -2px;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            opacity: 0.95;
+            margin: 15px 0;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .user-profile {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .user-level {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 40px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tab-btn:hover::before {
+            opacity: 1;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .tab-btn.active::before {
+            display: none;
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(255,255,255,0.95);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Word Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .word-card {
+            perspective: 1000px;
+            height: 280px;
+            position: relative;
+            touch-action: pan-x;
+        }
+
+        .swipe-card {
+            position: relative;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            cursor: grab;
+        }
+
+        .swipe-card:active {
+            cursor: grabbing;
+        }
+
+        .swipe-card.swiping {
+            transition: none;
+        }
+
+        .swipe-indicators {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .swipe-left {
+            left: 20px;
+            color: #ff4757;
+        }
+
+        .swipe-right {
+            right: 20px;
+            color: #2ed573;
+        }
+
+        .swipe-card.swipe-left-active .swipe-left,
+        .swipe-card.swipe-right-active .swipe-right {
+            opacity: 1;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .word-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: clamp(15px, 4vw, 25px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+
+
+        .achievements-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            transition: right 0.4s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .achievements-panel.open {
+            right: 0;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .achievement-item.locked {
+            background: #e0e0e0;
+            color: #999;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+        }
+
+        .achievement-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+        }
+
+        .achievement-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            transform: rotateY(180deg);
+            color: white;
+        }
+
+        .card-word {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-definition {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .card-example {
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Quiz Mode */
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score {
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .option-btn.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        /* Daily Word */
+        .daily-word-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .daily-word-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .daily-word-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Search and Add */
+        .search-section {
+            margin-bottom: 30px;
+        }
+
+        .search-input, .add-input {
+            width: 100%;
+            padding: 18px 24px;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            border-radius: 16px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            font-weight: 400;
+        }
+
+        .search-input:focus, .add-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .search-input::placeholder, .add-input::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a5acd 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #ff5252, #d32f2f);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .manage-word-card {
+            position: relative;
+            perspective: 1000px;
+            height: 240px;
+        }
+
+        .manage-word-card .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .manage-word-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .manage-word-card .card-front {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .manage-word-card .card-back {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Progress */
+        .progress-section {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: #333;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .user-profile {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 0 auto 20px;
+                width: fit-content;
+            }
+
+            .header {
+                padding: 10px 0;
+                margin-bottom: 20px;
+            }
+
+            .nav-tabs {
+                padding: 4px;
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .word-card {
+                height: 240px;
+            }
+
+            .quiz-container {
+                padding: 0;
+            }
+
+            .question-card {
+                padding: 20px;
+                margin-bottom: 15px;
+            }
+
+            .achievements-panel {
+                width: 100vw;
+                right: -100vw;
+            }
+
+
+
+            .dark-mode-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-content {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .add-word-form {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .word-card {
+                height: 220px;
+            }
+
+            .card-word {
+                font-size: 1.4rem;
+            }
+
+            .card-definition {
+                font-size: 1rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .add-word-form {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(248,249,250,0.9));
+            padding: 35px;
+            border-radius: 24px;
+            margin-top: 30px;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .add-word-form h3 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .result-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .result-message.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result-message.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .dark-mode-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+
+        body.dark-mode .tab-content {
+            background: rgba(44, 62, 80, 0.95);
+            color: #ecf0f1;
+        }
+
+        body.dark-mode .add-word-form {
+            background: linear-gradient(135deg, rgba(52, 73, 94, 0.9), rgba(44, 62, 80, 0.9));
+            color: #ecf0f1;
+        }
+
+        body.dark-mode .add-word-form h3 {
+            color: #ecf0f1;
+        }
+
+        body.dark-mode .form-group label {
+            color: #bdc3c7;
+        }
+
+        body.dark-mode .search-input, 
+        body.dark-mode .add-input {
+            background: rgba(52, 73, 94, 0.8);
+            color: #ecf0f1;
+            border-color: rgba(149, 165, 166, 0.3);
+        }
+
+        body.dark-mode .search-input::placeholder, 
+        body.dark-mode .add-input::placeholder {
+            color: #95a5a6;
+        }
+
+        body.dark-mode .option-btn {
+            background: rgba(52, 73, 94, 0.8);
+            color: #ecf0f1;
+            border-color: rgba(149, 165, 166, 0.3);
+        }
+
+        body.dark-mode .option-btn:hover {
+            border-color: #3498db;
+        }
+
+        .speaker-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .speaker-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #1f4e79);
+            transform: scale(1.1);
+        }
+
+        .circle-img {
+      width: 50px;        /* размер изображения */
+      height: 50px;       /* делаем его квадратным */
+      border-radius: 50%;  /* превращаем в круг */
+      object-fit: cover;   /* чтобы картинка не растягивалась */
+      border: 4px solid #667eea; /* (опция) рамка */
+    }
+
+    .top-bar {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+}
+
+.top-bar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.social-links {
+  margin-top: 20px;         /* отступ сверху */
+  display: flex;            /* иконки в ряд */
+  gap: 20px;                /* расстояние между иконками */
+  justify-content: center;  /* выравнивание по центру */
+}
+
+.social-links a {
+  font-size: 28px;          /* размер иконок или текста */
+  color: #ffffff;           /* базовый цвет (можешь поменять) */
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  width: 180px;
+  height: 60px;
+  border-radius: 28%;       /* делаем круглые кнопки */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.social-links a:hover {
+  transform: translateY(-4px) scale(1.05);   /* анимация при наведении */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #5a6fd8, #6a5acd);
+  color: #fff;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- Верхняя строка: профиль + кнопки -->
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <!-- Профиль -->
+                <div class="user-profile" onclick="showProfileModal()" style="display: flex; align-items: center; gap: 10px;">
+                    <div class="user-avatar" id="userAvatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Foydalanuvchi</div>
+                        <div class="user-level" id="userLevel">Boshlang'ich</div>
+                    </div>
+                </div>
+        
+                <!-- Кнопки -->
+                <div>
+                    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+            <button class="dark-mode-toggle" onclick="undoLastAction()" style="right: 100px;">↶</button>
+            <button class="dark-mode-toggle" onclick="toggleAchievements()" style="right: 60px;">🏆</button>
+                </div>
+            </div>
+        
+            <!-- Нижняя строка: лого + текст -->
+            <div style="text-align: center; margin-top: 15px;">
+                <div class="top-bar" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                    <img src="logo.png" alt="Ethernis Logo" class="circle-img">
+                    <h1>Ethernis English Learning App</h1>
+                </div>
+                <p>Sizning Interaktiv, So'zlar Yodlash Bo'yicha Yordamchingiz</p>
+            </div>
+        </div>
+        
+
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'cards')">So'zlar</button>
+            <button class="tab-btn" onclick="showTab(event, 'review')">So'zlarni Takrorlash</button>
+            <button class="tab-btn" onclick="showTab(event, 'quiz')">Viktorina</button>
+            <button class="tab-btn" onclick="showTab(event, 'spelling')">Spelling</button>
+            <button class="tab-btn" onclick="showTab(event, 'practice')">Mashq</button>
+            <button class="tab-btn" onclick="showTab(event, 'daily')">Kunl So'zi</button>
+            <button class="tab-btn" onclick="showTab(event, 'progress')">Progess</button>
+            <button class="tab-btn" onclick="showTab(event, 'manage')">So'zlarni Boshqarish</button>
+            <button class="tab-btn" onclick="showTab(event, 'aboutus')">Biz haqimizda</button>
+        </div>
+
+        <!-- Word Cards Tab -->
+        <div id="cards" class="tab-content active">
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="So'zlarni qidirish..." onkeyup="searchWords(this.value)">
+            </div>
+
+            <div class="cards-grid" id="cardsGrid">
+                <!-- Cards will be generated here -->
+            </div>
+        </div>
+
+        <!-- Review Words Tab -->
+        <div id="review" class="tab-content">
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="So'zlarni qidirish..." onkeyup="searchReviewWords(this.value)">
+            </div>
+
+            <div class="cards-grid" id="reviewCardsGrid">
+                <!-- Review cards will be generated here -->
+            </div>
+        </div>
+
+        <!-- Quiz Mode Tab -->
+        <div id="quiz" class="tab-content">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <div class="score">Ball: <span id="quizScore">0</span>/<span id="quizTotal">0</span></div>
+                </div>
+                <div id="quizContent">
+                    <button class="btn" onclick="startQuiz()">Viktorinani Boshlash</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spelling Test Tab -->
+        <div id="spelling" class="tab-content">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h3>✍️ Yozish Testi</h3>
+                    <p>So'zni eshitib to'g'ri yozing</p>
+                    <div class="score">Ball: <span id="spellingScore">0</span>/<span id="spellingTotal">0</span></div>
+                </div>
+                <div id="spellingContent">
+                    <button class="btn" onclick="startSpellingTest()">Yozish Testini Boshlash</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Mode Tab -->
+        <div id="practice" class="tab-content">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h3>🎯 Takroriy Mashq</h3>
+                    <p>O'zlashtirish kerak bo'lgan so'zlarga e'tibor bering</p>
+                    <div class="score">XP: <span id="userXP">0</span> | Ketma-ketlik: <span id="userStreak">0</span> kun</div>
+                </div>
+                <div id="practiceContent">
+                    <button class="btn" onclick="startPractice()">Mashq Seansini Boshlash</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Word Tab -->
+        <div id="daily" class="tab-content">
+            <div class="daily-word-card" id="dailyWordCard">
+                <!-- Daily word will be generated here -->
+            </div>
+        </div>
+
+        <!-- Progress Tab -->
+        <div id="progress" class="tab-content">
+            <div class="progress-section">
+                <h3>O'rganish Jarayoni</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalWords">0</div>
+                        <div class="stat-label">Jami So'zlar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="masteredWords">0</div>
+                        <div class="stat-label">O'zlashtirilgan So'zlar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="quizAccuracy">0%</div>
+                        <div class="stat-label">Viktorina Aniqligi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Words Tab -->
+        <div id="manage" class="tab-content">
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="Mavjud so'zlarni qidirish..." onkeyup="searchManageWords(this.value)">
+            </div>
+            
+            <div class="add-word-form">
+                <h3>Yangi So'z Qo'shish</h3>
+                <div class="form-group">
+                    <label>So'z:</label>
+                    <input type="text" class="add-input" id="newWord" placeholder="Yangi so'zni kiriting">
+                </div>
+                <div class="form-group">
+                    <label>Ta'rif:</label>
+                    <input type="text" class="add-input" id="newDefinition" placeholder="Ta'rifni kiriting">
+                </div>
+                <div class="form-group">
+                    <label>Misol (ixtiyoriy):</label>
+                    <input type="text" class="add-input" id="newExample" placeholder="Misol jumlani kiriting">
+                </div>
+
+                <button class="btn" onclick="addNewWord()">So'z Qo'shish</button>
+            </div>
+
+            <div class="add-word-form" style="margin-top: 20px;">
+                <h3>Import/Eksport va Sozlamalar</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                    <button class="btn" onclick="exportWords()">📥 So'zlarni Eksport Qilish</button>
+                    <button class="btn" onclick="document.getElementById('importFile').click()">📤 So'zlarni Import Qilish</button>
+                    <button class="btn btn-secondary" onclick="resetProgress()">🔄 Barcha Ma'lumotlarni Tiklash</button>
+                </div>
+                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importWords(event)">
+            </div>
+
+            <div id="manageWordsList" style="margin-top: 30px;">
+                <!-- Existing words list will be shown here -->
+            </div>
+        </div>
+        <!-- About Us Tab -->
+        <div id="aboutus" class="tab-content">
+            <h2>Biz haqimizda</h2>
+            <p>Ethernis - bu ingliz tilini o'rganishni oson va qiziqarli qilish uchun yaratilgan interaktiv veb-ilova. Bizning maqsadimiz foydalanuvchilarga so'z boyligini oshirish, talaffuzni yaxshilash va til ko'nikmalarini mustahkamlashda yordam berishdir.</p>
+            <p>Ilovamizda so'z kartalari, viktorinalar, takroriy mashqlar va kunlik so'z funksiyalari mavjud bo'lib, ular foydalanuvchilarning o'rganish jarayonini qiziqarli va samarali qiladi. Shuningdek, foydalanuvchilar o'z so'z bazasini boshqarishlari, yangi so'zlar qo'shishlari va o'z progresslarini kuzatib borishlari mumkin.</p>
+            <p>Biz foydalanuvchilarning fikr-mulohazalarini qadrlaymiz va ilovamizni doimiy ravishda yaxshilab boramiz. Agar sizda savollar yoki takliflar bo'lsa, iltimos, biz bilan bog'laning!</p>
+            <p>Ethernis jamoasi nomidan sizga ingliz tilini o'rganishda muvaffaqiyatlar tilaymiz!</p>
+            <div class="social-links">
+                <a href="https://telegram.me/Ethernis_Group" target="_blank">Telegram</a>
+                <a href="https://instagram.com/Ethernis_Group" target="_blank">Instagram</a>
+                <a href="https://telegram.me/Ethernis_Admin" target="_blank">Support</a>
+              </div>
+        </div>
+    </div>
+
+    <!-- Achievements Panel -->
+    <div class="achievements-panel" id="achievementsPanel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="margin: 0; color: #333;">🏆 Yutuqlar</h2>
+            <button onclick="toggleAchievements()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+        </div>
+        <div id="achievementsList">
+            <!-- Achievements will be generated here -->
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; backdrop-filter: blur(5px);">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px;">
+            <h3 style="margin-top: 0; text-align: center;">👤 Profil Sozlamalari</h3>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Ism:</label>
+                <input type="text" id="profileName" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Avatar:</label>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <button type="button" onclick="document.getElementById('profileAvatar').click()" style="flex: 1; padding: 12px; border: 2px solid #667eea; border-radius: 10px; background: white; color: #667eea; cursor: pointer; font-weight: 500;">📁 Fayldan tanlash</button>
+                    <button type="button" onclick="document.getElementById('profileAvatarGallery').click()" style="flex: 1; padding: 12px; border: 2px solid #667eea; border-radius: 10px; background: white; color: #667eea; cursor: pointer; font-weight: 500;">🖼️ Galereyadan</button>
+                </div>
+                <input type="file" id="profileAvatar" accept="image/*" style="display: none;">
+                <input type="file" id="profileAvatarGallery" accept="image/*" capture="environment" style="display: none;">
+                <div style="margin-top: 10px; text-align: center;">
+                    <div id="avatarPreview" style="width: 80px; height: 80px; border-radius: 50%; background: #f0f0f0; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; overflow: hidden;">👤</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="btn" onclick="saveProfile()">Saqlash</button>
+                <button class="btn btn-secondary" onclick="closeProfileModal()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default word database with categories
+        const defaultWords = [
+            {
+                word: "Serendipity",
+                definition: "Tasodifan sodir bo'ladigan baxtli hodisa",
+                example: "O'sha kitobni topish sof tasodif edi.",
+                category: "other",
+                difficulty: 1
+            },
+            {
+                word: "Ephemeral",
+                definition: "Juda qisqa vaqt davom etadigan",
+                example: "Olcha gullarining go'zalligi vaqtinchalik.",
+                category: "academic",
+                difficulty: 2
+            },
+            {
+                word: "Ubiquitous",
+                definition: "Hamma joyda mavjud bo'lgan",
+                example: "Smartfonlar zamonaviy jamiyatda hamma joyda mavjud.",
+                category: "academic",
+                difficulty: 2
+            },
+            {
+                word: "Meeting",
+                definition: "Yig'ilish, uchrashish",
+                example: "We have a meeting at 3 PM.",
+                category: "business",
+                difficulty: 0
+            },
+            {
+                word: "Restaurant",
+                definition: "Restoran, ovqatlanish joyi",
+                example: "Let's go to that new restaurant.",
+                category: "travel",
+                difficulty: 0
+            },
+            {
+                word: "Kitchen",
+                definition: "Oshxona",
+                example: "She is cooking in the kitchen.",
+                category: "daily",
+                difficulty: 0
+            },
+            {
+                word: "Presentation",
+                definition: "Taqdimot, namoyish",
+                example: "His presentation was very impressive.",
+                category: "business",
+                difficulty: 1
+            },
+            {
+                word: "Airport",
+                definition: "Aeroport, havo porti",
+                example: "We arrived at the airport early.",
+                category: "travel",
+                difficulty: 0
+            }
+        ];
+
+        // Word categories
+        const categories = {
+            all: "Barchasi",
+            daily: "🏠 Kundalik",
+            business: "💼 Biznes", 
+            travel: "✈️ Sayohat",
+            academic: "📚 Akademik",
+            other: "🔤 Boshqa"
+        };
+
+        // Achievements system
+        const achievements = [
+            { id: 'first_word', icon: '🎯', title: 'Birinchi So\'z', description: '1 ta so\'z o\'rganing', requirement: 1, type: 'mastered' },
+            { id: 'word_collector', icon: '📚', title: 'So\'z Yig\'uvchi', description: '10 ta so\'z o\'rganing', requirement: 10, type: 'mastered' },
+            { id: 'vocabulary_master', icon: '🧠', title: 'Lug\'at Ustasi', description: '50 ta so\'z o\'rganing', requirement: 50, type: 'mastered' },
+            { id: 'quiz_starter', icon: '🎮', title: 'Viktorina Boshlovchi', description: 'Birinchi viktorinani tugatish', requirement: 1, type: 'quiz' },
+            { id: 'perfect_score', icon: '💯', title: 'Mukammal Ball', description: 'Viktorinada 100% ball oling', requirement: 100, type: 'accuracy' },
+            { id: 'streak_week', icon: '🔥', title: 'Haftalik Ketma-ketlik', description: '7 kun ketma-ket mashq qiling', requirement: 7, type: 'streak' },
+            { id: 'xp_hunter', icon: '⭐', title: 'XP Ovchisi', description: '1000 XP to\'plang', requirement: 1000, type: 'xp' },
+            { id: 'spelling_master', icon: '✍️', title: 'Yozish Ustasi', description: 'Yozish testida 10 ta so\'zni to\'g\'ri yozing', requirement: 10, type: 'spelling' }
+        ];
+
+        // App state
+        let words = [];
+        let userProfile = {
+            name: "Foydalanuvchi",
+            avatar: null,
+            level: 1,
+            joinDate: new Date().toISOString()
+        };
+        let userProgress = {
+            masteredWords: [],
+            quizScores: [],
+            totalQuestions: 0,
+            correctAnswers: 0,
+            xp: 0,
+            streak: 0,
+            lastPracticeDate: null,
+            difficultWords: [],
+            spellingCorrect: 0,
+            unlockedAchievements: [],
+            srsData: {} // Spaced Repetition System data
+        };
+        let reviewWords = []; // Words for review section
+        let lastAction = null; // For undo functionality
+        let currentQuiz = {
+            questions: [],
+            currentQuestion: 0,
+            score: 0
+        };
+
+        // Initialize app
+        function initApp() {
+            loadData();
+            loadProfile();
+            generateWordCards();
+            generateReviewCards();
+            generateDailyWord();
+            updateProgress();
+            showManageWords();
+            updateAchievements();
+            updateUserLevel();
+        }
+
+        // Load data from localStorage
+        function loadData() {
+            const savedWords = localStorage.getItem('ethernis_words');
+            const savedProgress = localStorage.getItem('ethernis_progress');
+            const savedReviewWords = localStorage.getItem('ethernis_review_words');
+            
+            if (savedWords) {
+                words = JSON.parse(savedWords);
+                // Ensure all words have categories
+                words.forEach(word => {
+                    if (!word.category) word.category = 'other';
+                    if (word.difficulty === undefined) word.difficulty = 1;
+                });
+            } else {
+                words = [...defaultWords];
+                saveData();
+            }
+            
+            if (savedProgress) {
+                userProgress = { ...userProgress, ...JSON.parse(savedProgress) };
+            }
+
+            if (savedReviewWords) {
+                reviewWords = JSON.parse(savedReviewWords);
+            } else {
+                reviewWords = [...words]; // Initialize with all words
+                localStorage.setItem('ethernis_review_words', JSON.stringify(reviewWords));
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('ethernis_words', JSON.stringify(words));
+            localStorage.setItem('ethernis_progress', JSON.stringify(userProgress));
+            localStorage.setItem('ethernis_review_words', JSON.stringify(reviewWords));
+        }
+
+        // Load profile
+        function loadProfile() {
+            const savedProfile = localStorage.getItem('ethernis_profile');
+            if (savedProfile) {
+                userProfile = { ...userProfile, ...JSON.parse(savedProfile) };
+            }
+            updateProfileDisplay();
+        }
+
+        // Save profile
+        function saveProfile() {
+            const name = document.getElementById('profileName').value.trim();
+            if (name) {
+                userProfile.name = name;
+            }
+            
+            const avatarFile = document.getElementById('profileAvatar').files[0] || document.getElementById('profileAvatarGallery').files[0];
+            if (avatarFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    userProfile.avatar = e.target.result;
+                    localStorage.setItem('ethernis_profile', JSON.stringify(userProfile));
+                    updateProfileDisplay();
+                    closeProfileModal();
+                };
+                reader.readAsDataURL(avatarFile);
+            } else {
+                localStorage.setItem('ethernis_profile', JSON.stringify(userProfile));
+                updateProfileDisplay();
+                closeProfileModal();
+            }
+        }
+
+        // Update profile display
+        function updateProfileDisplay() {
+            document.getElementById('userName').textContent = userProfile.name;
+            document.getElementById('userLevel').textContent = getUserLevelName();
+            
+            const avatar = document.getElementById('userAvatar');
+            if (userProfile.avatar) {
+                avatar.innerHTML = `<img src="${userProfile.avatar}" alt="Avatar">`;
+            } else {
+                avatar.textContent = userProfile.name.charAt(0).toUpperCase();
+            }
+        }
+
+        // Get user level name
+        function getUserLevelName() {
+            const xp = userProgress.xp;
+            if (xp < 100) return "Beginner";
+            if (xp < 500) return "Elementary";
+            if (xp < 1000) return "Intermediate";
+            if (xp < 2000) return "Upper-Intermediate";
+            return "Advanced";
+        }
+
+        // Update user level
+        function updateUserLevel() {
+            const xp = userProgress.xp;
+            const newLevel = Math.floor(xp / 200) + 1;
+            if (newLevel > userProfile.level) {
+                userProfile.level = newLevel;
+                showNotification(`🎉 Yangi daraja: ${getUserLevelName()}!`);
+                localStorage.setItem('ethernis_profile', JSON.stringify(userProfile));
+            }
+            updateProfileDisplay();
+        }
+
+        // Show/hide profile modal
+        function showProfileModal() {
+            document.getElementById('profileName').value = userProfile.name;
+            const preview = document.getElementById('avatarPreview');
+            if (userProfile.avatar) {
+                preview.innerHTML = `<img src="${userProfile.avatar}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            } else {
+                preview.textContent = userProfile.name.charAt(0).toUpperCase();
+            }
+            
+            // Add event listeners for both file inputs
+            document.getElementById('profileAvatar').addEventListener('change', handleAvatarChange);
+            document.getElementById('profileAvatarGallery').addEventListener('change', handleAvatarChange);
+            
+            document.getElementById('profileModal').style.display = 'block';
+        }
+
+        function handleAvatarChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('avatarPreview');
+                    preview.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 10000;
+                font-weight: 500;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Spaced Repetition System
+        function updateSRS(word, correct) {
+            if (!userProgress.srsData[word]) {
+                userProgress.srsData[word] = {
+                    interval: 1,
+                    repetitions: 0,
+                    easeFactor: 2.5,
+                    nextReview: new Date().getTime()
+                };
+            }
+            
+            const srs = userProgress.srsData[word];
+            
+            if (correct) {
+                if (srs.repetitions === 0) {
+                    srs.interval = 1;
+                } else if (srs.repetitions === 1) {
+                    srs.interval = 6;
+                } else {
+                    srs.interval = Math.round(srs.interval * srs.easeFactor);
+                }
+                srs.repetitions++;
+            } else {
+                srs.repetitions = 0;
+                srs.interval = 1;
+            }
+            
+            srs.nextReview = new Date().getTime() + (srs.interval * 24 * 60 * 60 * 1000);
+        }
+
+        // Tab navigation
+        function showTab(event, tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'progress') updateProgress();
+            else if (tabName === 'manage') showManageWords();
+            else if (tabName === 'practice') initPracticeMode();
+            else if (tabName === 'spelling') initSpellingTest();
+            else if (tabName === 'review') generateReviewCards();
+        }
+
+        // Achievements system
+        function checkAchievements() {
+            achievements.forEach(achievement => {
+                if (userProgress.unlockedAchievements.includes(achievement.id)) return;
+                
+                let unlocked = false;
+                
+                switch (achievement.type) {
+                    case 'mastered':
+                        unlocked = userProgress.masteredWords.length >= achievement.requirement;
+                        break;
+                    case 'quiz':
+                        unlocked = userProgress.quizScores.length >= achievement.requirement;
+                        break;
+                    case 'accuracy':
+                        const accuracy = userProgress.totalQuestions > 0 ? 
+                            (userProgress.correctAnswers / userProgress.totalQuestions) * 100 : 0;
+                        unlocked = accuracy >= achievement.requirement;
+                        break;
+                    case 'streak':
+                        unlocked = userProgress.streak >= achievement.requirement;
+                        break;
+                    case 'xp':
+                        unlocked = userProgress.xp >= achievement.requirement;
+                        break;
+                    case 'spelling':
+                        unlocked = userProgress.spellingCorrect >= achievement.requirement;
+                        break;
+                }
+                
+                if (unlocked) {
+                    userProgress.unlockedAchievements.push(achievement.id);
+                    userProgress.xp += 50; // Bonus XP for achievement
+                    showNotification(`🏆 Yangi yutuq: ${achievement.title}! +50 XP`);
+                }
+            });
+        }
+
+        function updateAchievements() {
+            const achievementsList = document.getElementById('achievementsList');
+            achievementsList.innerHTML = '';
+            
+            achievements.forEach(achievement => {
+                const isUnlocked = userProgress.unlockedAchievements.includes(achievement.id);
+                const item = document.createElement('div');
+                item.className = `achievement-item ${isUnlocked ? '' : 'locked'}`;
+                item.innerHTML = `
+                    <div class="achievement-icon">${isUnlocked ? achievement.icon : '🔒'}</div>
+                    <div class="achievement-info">
+                        <h4>${achievement.title}</h4>
+                        <p>${achievement.description}</p>
+                    </div>
+                `;
+                achievementsList.appendChild(item);
+            });
+        }
+
+        function toggleAchievements() {
+            const panel = document.getElementById('achievementsPanel');
+            panel.classList.toggle('open');
+            if (panel.classList.contains('open')) {
+                updateAchievements();
+            }
+        }
+
+        // Spelling test functions
+        function initSpellingTest() {
+            document.getElementById('spellingScore').textContent = '0';
+            document.getElementById('spellingTotal').textContent = '0';
+        }
+
+        function startSpellingTest() {
+            if (words.length < 5) {
+                document.getElementById('spellingContent').innerHTML = '<p>Yozish testini boshlash uchun kamida 5 ta so\'z kerak!</p>';
+                return;
+            }
+            
+            const testWords = words.sort(() => Math.random() - 0.5).slice(0, 10);
+            currentSpellingTest = {
+                words: testWords,
+                currentWord: 0,
+                score: 0
+            };
+            
+            document.getElementById('spellingTotal').textContent = testWords.length;
+            showSpellingQuestion();
+        }
+
+        function showSpellingQuestion() {
+            const word = currentSpellingTest.words[currentSpellingTest.currentWord];
+            const spellingContent = document.getElementById('spellingContent');
+            
+            spellingContent.innerHTML = `
+                <div class="question-card">
+                    <div class="question">So'zni eshiting va yozing:</div>
+                    <button class="btn" onclick="speakWord('${word.word}')" style="margin: 20px 0;">🔊 So'zni eshitish</button>
+                    <div style="margin: 20px 0;">
+                        <p style="font-style: italic; opacity: 0.8;">"${word.definition}"</p>
+                    </div>
+                    <input type="text" id="spellingInput" placeholder="So'zni yozing..." 
+                           style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1.1rem; margin: 15px 0;"
+                           onkeypress="if(event.key==='Enter') checkSpelling()">
+                    <div>
+                        <button class="btn" onclick="checkSpelling()">Tekshirish</button>
+                    </div>
+                </div>
+                <div id="spellingResult"></div>
+            `;
+            
+            // Focus on input
+            setTimeout(() => document.getElementById('spellingInput').focus(), 100);
+        }
+
+        function checkSpelling() {
+            const word = currentSpellingTest.words[currentSpellingTest.currentWord];
+            const userInput = document.getElementById('spellingInput').value.trim().toLowerCase();
+            const correctWord = word.word.toLowerCase();
+            const isCorrect = userInput === correctWord;
+            
+            if (isCorrect) {
+                currentSpellingTest.score++;
+                userProgress.spellingCorrect++;
+                userProgress.xp += 20;
+            }
+            
+            const resultDiv = document.getElementById('spellingResult');
+            resultDiv.innerHTML = `
+                <div class="result-message ${isCorrect ? 'correct' : 'incorrect'}">
+                    ${isCorrect ? '✅ To\'g\'ri!' : `❌ Noto\'g\'ri! To\'g\'ri javob: "${word.word}"`}
+                    ${isCorrect ? ' +20 XP' : ''}
+                </div>
+                <button class="btn" onclick="nextSpellingQuestion()" style="margin-top: 15px;">
+                    ${currentSpellingTest.currentWord < currentSpellingTest.words.length - 1 ? 'Keyingi So\'z' : 'Testni Tugatish'}
+                </button>
+            `;
+            
+            document.getElementById('spellingScore').textContent = currentSpellingTest.score;
+            checkAchievements();
+            saveData();
+        }
+
+        function nextSpellingQuestion() {
+            currentSpellingTest.currentWord++;
+            
+            if (currentSpellingTest.currentWord < currentSpellingTest.words.length) {
+                showSpellingQuestion();
+            } else {
+                finishSpellingTest();
+            }
+        }
+
+        function finishSpellingTest() {
+            const percentage = Math.round((currentSpellingTest.score / currentSpellingTest.words.length) * 100);
+            
+            document.getElementById('spellingContent').innerHTML = `
+                <div class="question-card">
+                    <h3>Yozish Testi Tugadi! ✍️</h3>
+                    <p>Sizning Ballingiz: ${currentSpellingTest.score}/${currentSpellingTest.words.length} (${percentage}%)</p>
+                    <p>Olingan XP: ${currentSpellingTest.score * 20}</p>
+                    <button class="btn" onclick="startSpellingTest()">Yana Test Topshirish</button>
+                </div>
+            `;
+            
+            updateUserLevel();
+        }
+
+        // Generate word cards without swipe functionality
+        function generateWordCards(filteredWords = null) {
+            const cardsGrid = document.getElementById('cardsGrid');
+            const wordsToShow = filteredWords || words;
+            
+            cardsGrid.innerHTML = '';
+            
+            wordsToShow.forEach((wordObj, index) => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                
+                // Ensure category exists
+                if (!wordObj.category) wordObj.category = 'other';
+                
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <button class="speaker-btn" onclick="event.stopPropagation(); speakWord('${wordObj.word}')">🔊</button>
+                            <div class="card-word">${wordObj.word}</div>
+                            <div style="font-size: 0.9rem; opacity: 0.7;">Ta'rifni ko'rish uchun bosing</div>
+                        </div>
+                        <div class="card-back">
+                            <button class="speaker-btn" onclick="event.stopPropagation(); speakWord('${wordObj.word}')">🔊</button>
+                            <div class="card-definition">${wordObj.definition}</div>
+                            ${wordObj.example ? `<div class="card-example">"${wordObj.example}"</div>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.speaker-btn')) {
+                        card.classList.toggle('flipped');
+                        if (card.classList.contains('flipped') && !userProgress.masteredWords.includes(wordObj.word)) {
+                            userProgress.masteredWords.push(wordObj.word);
+                            updateSRS(wordObj.word, true);
+                            checkAchievements();
+                            saveData();
+                        }
+                    }
+                });
+                
+                cardsGrid.appendChild(card);
+            });
+        }
+
+        // Generate review cards with swipe functionality
+        function generateReviewCards(filteredWords = null) {
+            const cardsGrid = document.getElementById('reviewCardsGrid');
+            const wordsToShow = filteredWords || reviewWords;
+            
+            cardsGrid.innerHTML = '';
+            
+            if (wordsToShow.length === 0) {
+                cardsGrid.innerHTML = '<p style="text-align: center; color: #666; font-size: 1.1rem; margin: 40px 0;">Takrorlash uchun so\'zlar tugadi! Ajoyib ish!</p>';
+                return;
+            }
+            
+            wordsToShow.forEach((wordObj, index) => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                
+                // Ensure category exists
+                if (!wordObj.category) wordObj.category = 'other';
+                
+                card.innerHTML = `
+                    <div class="swipe-card" data-word-index="${reviewWords.indexOf(wordObj)}">
+                        <div class="swipe-indicators swipe-left">❌</div>
+                        <div class="swipe-indicators swipe-right">✅</div>
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-word">${wordObj.word}</div>
+                                <div style="font-size: 0.9rem; opacity: 0.7;">Ta'rifni ko'rish uchun bosing</div>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-definition">${wordObj.definition}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const swipeCard = card.querySelector('.swipe-card');
+                setupReviewSwipeGestures(swipeCard, wordObj);
+                
+                card.addEventListener('click', (e) => {
+                    card.classList.toggle('flipped');
+                });
+                
+                cardsGrid.appendChild(card);
+            });
+        }
+
+        // Search review words
+        function searchReviewWords(query) {
+            if (!query.trim()) {
+                generateReviewCards();
+                return;
+            }
+            
+            const filtered = reviewWords.filter(word => 
+                word.word.toLowerCase().includes(query.toLowerCase()) ||
+                word.definition.toLowerCase().includes(query.toLowerCase())
+            );
+            generateReviewCards(filtered);
+        }
+
+        // Get category icon
+        function getCategoryIcon(category) {
+            const icons = {
+                daily: '🏠',
+                business: '💼',
+                travel: '✈️',
+                academic: '📚',
+                other: '🔤'
+            };
+            return icons[category] || '🔤';
+        }
+
+        // Setup swipe gestures for review cards
+        function setupReviewSwipeGestures(element, wordObj) {
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+
+            const handleStart = (e) => {
+                isDragging = true;
+                startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                element.classList.add('swiping');
+            };
+
+            const handleMove = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                const deltaX = currentX - startX;
+                
+                element.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.1}deg)`;
+                element.style.opacity = Math.max(0.3, 1 - Math.abs(deltaX) / 300);
+                
+                // Show indicators
+                if (deltaX < -50) {
+                    element.classList.add('swipe-left-active');
+                    element.classList.remove('swipe-right-active');
+                } else if (deltaX > 50) {
+                    element.classList.add('swipe-right-active');
+                    element.classList.remove('swipe-left-active');
+                } else {
+                    element.classList.remove('swipe-left-active', 'swipe-right-active');
+                }
+            };
+
+            const handleEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const deltaX = currentX - startX;
+                element.classList.remove('swiping', 'swipe-left-active', 'swipe-right-active');
+                
+                if (Math.abs(deltaX) > 100) {
+                    // Save action for undo
+                    lastAction = {
+                        type: 'review_swipe',
+                        word: wordObj,
+                        direction: deltaX > 0 ? 'right' : 'left'
+                    };
+                    
+                    // Swipe action
+                    if (deltaX > 0) {
+                        // Swipe right - learned
+                        handleReviewWordLearned(wordObj);
+                    } else {
+                        // Swipe left - not learned
+                        handleReviewWordNotLearned(wordObj);
+                    }
+                    
+                    // Animate card away
+                    element.style.transform = `translateX(${deltaX > 0 ? '100vw' : '-100vw'}) rotate(${deltaX * 0.2}deg)`;
+                    element.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        element.parentElement.style.display = 'none';
+                    }, 300);
+                } else {
+                    // Snap back
+                    element.style.transform = '';
+                    element.style.opacity = '';
+                }
+            };
+
+            // Mouse events
+            element.addEventListener('mousedown', handleStart);
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('mouseup', handleEnd);
+
+            // Touch events
+            element.addEventListener('touchstart', handleStart, { passive: false });
+            element.addEventListener('touchmove', handleMove, { passive: false });
+            element.addEventListener('touchend', handleEnd);
+        }
+
+        // Setup swipe gestures
+        function setupSwipeGestures(element, wordObj) {
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+
+            const handleStart = (e) => {
+                isDragging = true;
+                startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                element.classList.add('swiping');
+            };
+
+            const handleMove = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                const deltaX = currentX - startX;
+                
+                element.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.1}deg)`;
+                element.style.opacity = Math.max(0.3, 1 - Math.abs(deltaX) / 300);
+                
+                // Show indicators
+                if (deltaX < -50) {
+                    element.classList.add('swipe-left-active');
+                    element.classList.remove('swipe-right-active');
+                } else if (deltaX > 50) {
+                    element.classList.add('swipe-right-active');
+                    element.classList.remove('swipe-left-active');
+                } else {
+                    element.classList.remove('swipe-left-active', 'swipe-right-active');
+                }
+            };
+
+            const handleEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const deltaX = currentX - startX;
+                element.classList.remove('swiping', 'swipe-left-active', 'swipe-right-active');
+                
+                if (Math.abs(deltaX) > 100) {
+                    // Swipe action
+                    if (deltaX > 0) {
+                        // Swipe right - learned
+                        handleWordLearned(wordObj);
+                    } else {
+                        // Swipe left - not learned
+                        handleWordNotLearned(wordObj);
+                    }
+                    
+                    // Animate card away
+                    element.style.transform = `translateX(${deltaX > 0 ? '100vw' : '-100vw'}) rotate(${deltaX * 0.2}deg)`;
+                    element.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        element.parentElement.style.display = 'none';
+                    }, 300);
+                } else {
+                    // Snap back
+                    element.style.transform = '';
+                    element.style.opacity = '';
+                }
+            };
+
+            // Mouse events
+            element.addEventListener('mousedown', handleStart);
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('mouseup', handleEnd);
+
+            // Touch events
+            element.addEventListener('touchstart', handleStart, { passive: false });
+            element.addEventListener('touchmove', handleMove, { passive: false });
+            element.addEventListener('touchend', handleEnd);
+        }
+
+        // Handle word learned (swipe right)
+        function handleWordLearned(wordObj) {
+            if (!userProgress.masteredWords.includes(wordObj.word)) {
+                userProgress.masteredWords.push(wordObj.word);
+                userProgress.xp += 15;
+                updateSRS(wordObj.word, true);
+                checkAchievements();
+                saveData();
+                showNotification(`✅ "${wordObj.word}" o'rganildi! +15 XP`);
+            }
+        }
+
+        // Handle word not learned (swipe left)
+        function handleWordNotLearned(wordObj) {
+            if (!userProgress.difficultWords.includes(wordObj.word)) {
+                userProgress.difficultWords.push(wordObj.word);
+            }
+            updateSRS(wordObj.word, false);
+            saveData();
+            showNotification(`❌ "${wordObj.word}" takrorlash kerak`);
+        }
+
+        // Handle review word learned (swipe right)
+        function handleReviewWordLearned(wordObj) {
+            // Remove from review words
+            const index = reviewWords.findIndex(w => w.word === wordObj.word && w.definition === wordObj.definition);
+            if (index !== -1) {
+                reviewWords.splice(index, 1);
+            }
+            
+            if (!userProgress.masteredWords.includes(wordObj.word)) {
+                userProgress.masteredWords.push(wordObj.word);
+                userProgress.xp += 15;
+            }
+            updateSRS(wordObj.word, true);
+            checkAchievements();
+            saveData();
+            showNotification(`✅ "${wordObj.word}" o'rganildi! +15 XP`);
+        }
+
+        // Handle review word not learned (swipe left)
+        function handleReviewWordNotLearned(wordObj) {
+            // Remove from review words but add to difficult words
+            const index = reviewWords.findIndex(w => w.word === wordObj.word && w.definition === wordObj.definition);
+            if (index !== -1) {
+                reviewWords.splice(index, 1);
+            }
+            
+            if (!userProgress.difficultWords.includes(wordObj.word)) {
+                userProgress.difficultWords.push(wordObj.word);
+            }
+            updateSRS(wordObj.word, false);
+            saveData();
+            showNotification(`❌ "${wordObj.word}" takrorlash kerak`);
+        }
+
+
+
+        // Undo last action
+        function undoLastAction() {
+            if (!lastAction) {
+                showNotification('Bekor qilinadigan harakat yo\'q');
+                return;
+            }
+
+            switch (lastAction.type) {
+                case 'review_swipe':
+                    // Return word to review list
+                    if (!reviewWords.find(w => w.word === lastAction.word.word && w.definition === lastAction.word.definition)) {
+                        reviewWords.push(lastAction.word);
+                    }
+                    
+                    // Remove from mastered or difficult words based on swipe direction
+                    if (lastAction.direction === 'right') {
+                        userProgress.masteredWords = userProgress.masteredWords.filter(w => w !== lastAction.word.word);
+                        userProgress.xp = Math.max(0, userProgress.xp - 15);
+                    } else {
+                        userProgress.difficultWords = userProgress.difficultWords.filter(w => w !== lastAction.word.word);
+                    }
+                    
+                    saveData();
+                    generateReviewCards();
+                    showNotification(`↶ "${lastAction.word.word}" qaytarildi`);
+                    break;
+                    
+                default:
+                    showNotification('Bu harakatni bekor qilib bo\'lmaydi');
+                    break;
+            }
+            
+            lastAction = null;
+        }
+
+        // Search words
+        function searchWords(query) {
+            if (!query.trim()) {
+                generateWordCards();
+                return;
+            }
+            
+            const filtered = words.filter(word => 
+                word.word.toLowerCase().includes(query.toLowerCase()) ||
+                word.definition.toLowerCase().includes(query.toLowerCase())
+            );
+            generateWordCards(filtered);
+        }
+
+        // Quiz functionality
+        function startQuiz() {
+            if (words.length < 4) {
+                document.getElementById('quizContent').innerHTML = '<p>Viktorinani boshlash uchun kamida 4 ta so\'z kerak. Avval ko\'proq so\'z qo\'shing!</p>';
+                return;
+            }
+            
+            currentQuiz = {
+                questions: generateQuizQuestions(),
+                currentQuestion: 0,
+                score: 0
+            };
+            
+            document.getElementById('quizScore').textContent = '0';
+            document.getElementById('quizTotal').textContent = currentQuiz.questions.length;
+            
+            showQuizQuestion();
+        }
+
+        function generateQuizQuestions() {
+            const shuffled = [...words].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, Math.min(10, words.length)).map(word => {
+                const otherWords = words.filter(w => w.word !== word.word);
+                const wrongAnswers = otherWords.sort(() => Math.random() - 0.5).slice(0, 3);
+                const options = [word, ...wrongAnswers].sort(() => Math.random() - 0.5);
+                
+                return {
+                    question: `"${word.definition}" nimani anglatadi?`,
+                    correctAnswer: word.word,
+                    options: options.map(w => w.word)
+                };
+            });
+        }
+
+        function showQuizQuestion() {
+            const question = currentQuiz.questions[currentQuiz.currentQuestion];
+            const quizContent = document.getElementById('quizContent');
+            
+            quizContent.innerHTML = `
+                <div class="question-card">
+                    <div class="question">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map(option => 
+                            `<button class="option-btn" onclick="selectAnswer('${option}')">${option}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+                <div id="quizResult"></div>
+            `;
+        }
+
+        function selectAnswer(selectedAnswer) {
+            const question = currentQuiz.questions[currentQuiz.currentQuestion];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+            const resultDiv = document.getElementById('quizResult');
+            
+            // Update progress
+            userProgress.totalQuestions++;
+            if (isCorrect) {
+                currentQuiz.score++;
+                userProgress.correctAnswers++;
+            }
+            
+            // Disable all buttons and show result
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === question.correctAnswer) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === selectedAnswer && !isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            resultDiv.innerHTML = `
+                <div class="result-message ${isCorrect ? 'correct' : 'incorrect'}">
+                    ${isCorrect ? '✅ To\'g\'ri!' : '❌ Noto\'g\'ri!'} Javob "${question.correctAnswer}"
+                </div>
+                <button class="btn" onclick="nextQuestion()" style="margin-top: 15px;">
+                    ${currentQuiz.currentQuestion < currentQuiz.questions.length - 1 ? 'Keyingi Savol' : 'Viktorinani Tugatish'}
+                </button>
+            `;
+            
+            document.getElementById('quizScore').textContent = currentQuiz.score;
+            saveData();
+        }
+
+        function nextQuestion() {
+            currentQuiz.currentQuestion++;
+            
+            if (currentQuiz.currentQuestion < currentQuiz.questions.length) {
+                showQuizQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            const percentage = Math.round((currentQuiz.score / currentQuiz.questions.length) * 100);
+            userProgress.quizScores.push(percentage);
+            
+            document.getElementById('quizContent').innerHTML = `
+                <div class="question-card">
+                    <h3>Viktorina Tugadi! 🎉</h3>
+                    <p>Sizning Ballingiz: ${currentQuiz.score}/${currentQuiz.questions.length} (${percentage}%)</p>
+                    <button class="btn" onclick="startQuiz()">Yana Viktorina O'tkazish</button>
+                </div>
+            `;
+            
+            saveData();
+        }
+
+        // Daily word
+        function generateDailyWord() {
+            const today = new Date().toDateString();
+            const savedDaily = localStorage.getItem('ethernis_daily_word');
+            const savedDate = localStorage.getItem('ethernis_daily_date');
+            
+            if (savedDaily && savedDate === today) {
+                const dailyWord = JSON.parse(savedDaily);
+                showDailyWord(dailyWord);
+            } else {
+                const randomWord = words[Math.floor(Math.random() * words.length)];
+                localStorage.setItem('ethernis_daily_word', JSON.stringify(randomWord));
+                localStorage.setItem('ethernis_daily_date', today);
+                showDailyWord(randomWord);
+            }
+        }
+
+        function showDailyWord(wordObj) {
+            document.getElementById('dailyWordCard').innerHTML = `
+                <div class="daily-word-title">📅 Kunning So'zi</div>
+                <div class="daily-word-content">
+                    <h2 style="margin: 20px 0; font-size: 2.5rem;">${wordObj.word}</h2>
+                    <p style="font-size: 1.3rem; margin: 15px 0;">${wordObj.definition}</p>
+                    ${wordObj.example ? `<p style="font-style: italic; opacity: 0.9;">"${wordObj.example}"</p>` : ''}
+                </div>
+            `;
+        }
+
+        // Progress tracking
+        function updateProgress() {
+            const totalWords = words.length;
+            const mastered = userProgress.masteredWords.length;
+            const accuracy = userProgress.totalQuestions > 0 ? 
+                Math.round((userProgress.correctAnswers / userProgress.totalQuestions) * 100) : 0;
+            
+            document.getElementById('progressFill').style.width = `${(mastered / totalWords) * 100}%`;
+            document.getElementById('totalWords').textContent = totalWords;
+            document.getElementById('masteredWords').textContent = mastered;
+            document.getElementById('quizAccuracy').textContent = `${accuracy}%`;
+        }
+
+        // Manage words
+        function addNewWord() {
+            const word = document.getElementById('newWord').value.trim();
+            const definition = document.getElementById('newDefinition').value.trim();
+            const example = document.getElementById('newExample').value.trim();
+            
+            if (!word || !definition) {
+                alert('Iltimos, so\'z va ta\'rifni kiriting!');
+                return;
+            }
+            
+            // Check if word already exists
+            if (words.some(w => w.word.toLowerCase() === word.toLowerCase())) {
+                alert('Bu so\'z allaqachon mavjud!');
+                return;
+            }
+            
+            const newWordObj = {
+                word: word,
+                definition: definition,
+                example: example || null,
+                category: 'other',
+                difficulty: 1
+            };
+            
+            words.push(newWordObj);
+            reviewWords.push(newWordObj); // Also add to review words
+            saveData();
+            
+            // Clear form
+            document.getElementById('newWord').value = '';
+            document.getElementById('newDefinition').value = '';
+            document.getElementById('newExample').value = '';
+            
+            // Refresh displays
+            generateWordCards();
+            generateReviewCards();
+            showManageWords();
+            updateProgress();
+            
+            alert('So\'z muvaffaqiyatli qo\'shildi!');
+        }
+
+        function showManageWords(filteredWords = null) {
+            const wordsToShow = filteredWords || words;
+            const manageList = document.getElementById('manageWordsList');
+            
+            if (wordsToShow.length === 0) {
+                manageList.innerHTML = '<p style="text-align: center; color: #666; font-size: 1.1rem; margin: 40px 0;">Hech qanday so\'z topilmadi.</p>';
+                return;
+            }
+            
+            manageList.innerHTML = `
+                <h3 style="margin-bottom: 25px; color: #333; font-size: 1.4rem; font-weight: 700;">Sizning So'zlaringiz (${wordsToShow.length})</h3>
+                <div class="cards-grid">
+                    ${wordsToShow.map((wordObj, displayIndex) => {
+                        // Find the actual index in the main words array
+                        const actualIndex = words.findIndex(w => w.word === wordObj.word && w.definition === wordObj.definition);
+                        return `
+                        <div class="manage-word-card" onclick="flipManageCard(this)">
+                            <button class="delete-btn" onclick="event.stopPropagation(); deleteWord(${actualIndex})">
+                                🗑️ O'chirish
+                            </button>
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <div class="card-word">${wordObj.word}</div>
+                                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">Ta'rifni ko'rish uchun bosing</div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="card-definition">${wordObj.definition}</div>
+                                    ${wordObj.example ? `<div class="card-example">"${wordObj.example}"</div>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;}).join('')}
+                </div>
+            `;
+        }
+
+        function searchManageWords(query) {
+            if (!query.trim()) {
+                showManageWords();
+                return;
+            }
+            
+            const filtered = words.filter(word => 
+                word.word.toLowerCase().includes(query.toLowerCase()) ||
+                word.definition.toLowerCase().includes(query.toLowerCase())
+            );
+            showManageWords(filtered);
+        }
+
+        function flipManageCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        function deleteWord(wordIndex) {
+            // Validate index
+            if (wordIndex < 0 || wordIndex >= words.length) {
+                alert('Xatolik: So\'z topilmadi!');
+                return;
+            }
+            
+            const wordToDelete = words[wordIndex];
+            
+            if (confirm(`"${wordToDelete.word}" so'zini o'chirishga ishonchingiz komilmi?`)) {
+                // Remove from words array
+                words.splice(wordIndex, 1);
+                
+                // Remove from review words array
+                reviewWords = reviewWords.filter(word => word.word !== wordToDelete.word || word.definition !== wordToDelete.definition);
+                
+                // Remove from user progress arrays
+                userProgress.masteredWords = userProgress.masteredWords.filter(word => word !== wordToDelete.word);
+                userProgress.difficultWords = userProgress.difficultWords.filter(word => word !== wordToDelete.word);
+                
+                // Save data
+                saveData();
+                
+                // Refresh all displays
+                generateWordCards();
+                generateReviewCards();
+                showManageWords();
+                updateProgress();
+                generateDailyWord(); // Regenerate daily word in case it was the deleted word
+                
+                alert(`"${wordToDelete.word}" so'zi muvaffaqiyatli o'chirildi!`);
+            }
+        }
+
+        // Audio pronunciation - ALWAYS uses English pronunciation
+        function speakWord(word) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.rate = 0.8;
+                utterance.pitch = 1;
+                utterance.lang = 'en-US'; // Force English pronunciation
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('ethernis_dark_mode', isDark);
+            document.querySelector('.dark-mode-toggle').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // Load dark mode preference
+        function loadDarkMode() {
+            const isDark = localStorage.getItem('ethernis_dark_mode') === 'true';
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.dark-mode-toggle').textContent = '☀️';
+            }
+        }
+
+        // Practice mode functions
+        function initPracticeMode() {
+            updateXPDisplay();
+        }
+
+        function updateXPDisplay() {
+            document.getElementById('userXP').textContent = userProgress.xp;
+            document.getElementById('userStreak').textContent = userProgress.streak;
+        }
+
+        function startPractice() {
+            const practiceWords = getPracticeWords();
+            if (practiceWords.length === 0) {
+                document.getElementById('practiceContent').innerHTML = '<p>Ajoyib! Siz barcha so\'zlarni o\'zlashtirdingiz. Mashqni davom ettirish uchun ko\'proq so\'z qo\'shing!</p>';
+                return;
+            }
+
+            // Similar to quiz but focuses on difficult words
+            currentQuiz = {
+                questions: generatePracticeQuestions(practiceWords),
+                currentQuestion: 0,
+                score: 0
+            };
+
+            showPracticeQuestion();
+        }
+
+        function getPracticeWords() {
+            // Prioritize difficult words and unmastered words
+            const unmastered = words.filter(w => !userProgress.masteredWords.includes(w.word));
+            const difficult = words.filter(w => userProgress.difficultWords.includes(w.word));
+            return [...new Set([...difficult, ...unmastered])].slice(0, 10);
+        }
+
+        function generatePracticeQuestions(practiceWords) {
+            return practiceWords.map(word => {
+                const otherWords = words.filter(w => w.word !== word.word);
+                const wrongAnswers = otherWords.sort(() => Math.random() - 0.5).slice(0, 3);
+                const options = [word, ...wrongAnswers].sort(() => Math.random() - 0.5);
+                
+                return {
+                    question: `"${word.definition}" nimani anglatadi?`,
+                    correctAnswer: word.word,
+                    options: options.map(w => w.word),
+                    wordObj: word
+                };
+            });
+        }
+
+        function showPracticeQuestion() {
+            const question = currentQuiz.questions[currentQuiz.currentQuestion];
+            const practiceContent = document.getElementById('practiceContent');
+            
+            practiceContent.innerHTML = `
+                <div class="question-card">
+                    <div class="question">${question.question}</div>
+                    <button class="speaker-btn" onclick="speakWord('${question.wordObj.word}')" style="position: relative; margin: 10px auto;">🔊 Talaffuzni eshitish</button>
+                    <div class="options">
+                        ${question.options.map(option => 
+                            `<button class="option-btn" onclick="selectPracticeAnswer('${option}')">${option}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+                <div id="practiceResult"></div>
+            `;
+        }
+
+        function selectPracticeAnswer(selectedAnswer) {
+            const question = currentQuiz.questions[currentQuiz.currentQuestion];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+            const resultDiv = document.getElementById('practiceResult');
+            
+            // Update progress and XP
+            userProgress.totalQuestions++;
+            if (isCorrect) {
+                currentQuiz.score++;
+                userProgress.correctAnswers++;
+                userProgress.xp += 10;
+                
+                // Remove from difficult words if answered correctly
+                userProgress.difficultWords = userProgress.difficultWords.filter(w => w !== question.correctAnswer);
+            } else {
+                // Add to difficult words if answered incorrectly
+                if (!userProgress.difficultWords.includes(question.correctAnswer)) {
+                    userProgress.difficultWords.push(question.correctAnswer);
+                }
+            }
+
+            // Update streak
+            updateStreak();
+            
+            // Show result with XP gain
+            resultDiv.innerHTML = `
+                <div class="result-message ${isCorrect ? 'correct' : 'incorrect'}">
+                    ${isCorrect ? '✅ To\'g\'ri! +10 XP' : '❌ Noto\'g\'ri!'} Javob "${question.correctAnswer}"
+                    ${isCorrect ? '' : ' (Mashq ro\'yxatiga qo\'shildi)'}
+                </div>
+                <button class="btn" onclick="nextPracticeQuestion()" style="margin-top: 15px;">
+                    ${currentQuiz.currentQuestion < currentQuiz.questions.length - 1 ? 'Keyingi Savol' : 'Mashqni Tugatish'}
+                </button>
+            `;
+            
+            updateXPDisplay();
+            saveData();
+        }
+
+        function nextPracticeQuestion() {
+            currentQuiz.currentQuestion++;
+            
+            if (currentQuiz.currentQuestion < currentQuiz.questions.length) {
+                showPracticeQuestion();
+            } else {
+                finishPractice();
+            }
+        }
+
+        function finishPractice() {
+            const xpGained = currentQuiz.score * 10;
+            document.getElementById('practiceContent').innerHTML = `
+                <div class="question-card">
+                    <h3>Mashq Tugadi! 🎉</h3>
+                    <p>Olingan XP: ${xpGained}</p>
+                    <p>Ketma-ketlik: ${userProgress.streak} kun</p>
+                    <button class="btn" onclick="startPractice()">Yana Mashq Qilish</button>
+                </div>
+            `;
+        }
+
+        function updateStreak() {
+            const today = new Date().toDateString();
+            const lastDate = userProgress.lastPracticeDate;
+            
+            if (lastDate === today) {
+                // Already practiced today
+                return;
+            }
+            
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (lastDate === yesterday.toDateString()) {
+                // Consecutive day
+                userProgress.streak++;
+            } else if (lastDate !== today) {
+                // Streak broken or first time
+                userProgress.streak = 1;
+            }
+            
+            userProgress.lastPracticeDate = today;
+        }
+
+        // Import/Export functions
+        function exportWords() {
+            const data = {
+                words: words,
+                progress: userProgress,
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ethernis-sozlar.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importWords(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (data.words && Array.isArray(data.words)) {
+                        if (confirm('Bu barcha joriy so\'zlaringiz va muvaffaqiyatingizni almashtiradi. Davom etasizmi?')) {
+                            words = data.words;
+                            if (data.progress) {
+                                userProgress = { ...userProgress, ...data.progress };
+                            }
+                            saveData();
+                            generateWordCards();
+                            showManageWords();
+                            updateProgress();
+                            updateXPDisplay();
+                            alert('So\'zlar muvaffaqiyatli import qilindi!');
+                        }
+                    } else {
+                        alert('Noto\'g\'ri fayl formati!');
+                    }
+                } catch (error) {
+                    alert('Faylni o\'qishda xatolik!');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function resetProgress() {
+            if (confirm('Bu BARCHA so\'zlaringiz va muvaffaqiyatingizni o\'chiradi. Bu bekor qilib bo\'lmaydi. Ishonchingiz komilmi?')) {
+                if (confirm('Haqiqatan ham ishonchingiz komilmi? Bu hamma narsani butunlay o\'chiradi!')) {
+                    localStorage.removeItem('ethernis_words');
+                    localStorage.removeItem('ethernis_progress');
+                    localStorage.removeItem('ethernis_review_words');
+                    localStorage.removeItem('ethernis_daily_word');
+                    localStorage.removeItem('ethernis_daily_date');
+                    
+                    words = [...defaultWords];
+                    reviewWords = [...defaultWords];
+                    userProgress = {
+                        masteredWords: [],
+                        quizScores: [],
+                        totalQuestions: 0,
+                        correctAnswers: 0,
+                        xp: 0,
+                        streak: 0,
+                        lastPracticeDate: null,
+                        difficultWords: [],
+                        spellingCorrect: 0,
+                        unlockedAchievements: [],
+                        srsData: {}
+                    };
+                    lastAction = null;
+                    
+                    saveData();
+                    generateWordCards();
+                    generateReviewCards();
+                    generateDailyWord();
+                    showManageWords();
+                    updateProgress();
+                    updateXPDisplay();
+                    
+                    alert('Barcha ma\'lumotlar tiklandi!');
+                }
+            }
+        }
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+            loadDarkMode();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'985d3f50f13135b3',t:'MTc1ODk5OTY2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
